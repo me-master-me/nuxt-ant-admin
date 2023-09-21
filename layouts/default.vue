@@ -1,5 +1,5 @@
 <template>
-  <a-layout v-if="$route.path!=='/'" id="components-layout-demo-custom-trigger">
+  <a-layout v-if="$route.path!=='/'" id="page-layout">
     <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
       <div class="logo" />
       <a-menu theme="dark" mode="inline" :default-selected-keys="['1']">
@@ -46,8 +46,12 @@ export default {
   }
 }
 </script>
-<style>
-#components-layout-demo-custom-trigger .trigger {
+<style lang="less" scoped>
+#page-layout{
+    min-width: 1440px;
+    height: 100vh;
+}
+#page-layout .trigger {
   font-size: 18px;
   line-height: 64px;
   padding: 0 24px;

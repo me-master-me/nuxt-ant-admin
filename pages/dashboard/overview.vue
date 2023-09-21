@@ -1,5 +1,5 @@
 <template>
-  <div>123</div>
+  <VChart :autoresize="true" :options="options" style="width:100%;height:100%" />
 </template>
 
 <script>
@@ -8,7 +8,23 @@ export default {
   components: {},
   props: {},
   data () {
-    return {}
+    return {
+      options: {
+        xAxis: {
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            data: [150, 230, 224, 218, 135, 147, 260],
+            type: 'line'
+          }
+        ]
+      }
+    }
   },
   mounted () {},
   methods: {}

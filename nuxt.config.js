@@ -15,33 +15,19 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['ant-design-vue/dist/antd.css', '@assets/css/variables.less'],
-
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/antd-ui'],
-
-  // Auto import components: https://go.nuxtjs.dev/config-components
+  css: [
+    {
+      src: '@assets/css/index.less',
+      lang: 'less'
+    }
+  ],
+  plugins: ['@/plugins/antd-ui', '@/plugins/unit'],
   components: true,
-
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module'
-  ],
-
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
-  ],
-
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  buildModules: ['@nuxtjs/eslint-module'],
+  modules: ['@nuxtjs/axios'],
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/'
   },
-
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: [/ant-design-vue/],
     babel: {
@@ -50,8 +36,7 @@ export default {
           'import',
           {
             libraryName: 'ant-design-vue',
-            libraryDirectory: 'lib', // 默认'lib'，也可视情况改为 'es'，通过查看组件可知这两个目录均存在。
-            style: true // true 代表使用less, 若使用css文件，可设置为 'css'
+            libraryDirectory: 'es'
           },
           'ant-design-vue'
         ]
