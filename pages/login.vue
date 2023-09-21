@@ -90,6 +90,7 @@
 <script>
 export default {
   components: {},
+  layout: 'login',
   data () {
     return {
       loginBtn: false,
@@ -126,8 +127,8 @@ export default {
       const {
         form: { validateFields },
         state,
-        customActiveKey,
-        Login
+        customActiveKey
+        // Login
       } = this
 
       state.loginBtn = true
@@ -148,12 +149,15 @@ export default {
           loginParams[!state.loginType ? 'email' : 'username'] =
             values.username
           //   loginParams.password = md5(values.password)
-          Login(loginParams)
-            .then(res => this.loginSuccess(res))
-            .catch(err => this.requestFailed(err))
-            .finally(() => {
-              state.loginBtn = false
-            })
+          //   Login(loginParams)
+          //     .then(res => this.loginSuccess(res))
+          //     .catch(err => this.requestFailed(err))
+          //     .finally(() => {
+          //       state.loginBtn = false
+          //     })
+          this.$router.push({
+            path: '/dashboard/overview'
+          })
         } else {
           setTimeout(() => {
             state.loginBtn = false
