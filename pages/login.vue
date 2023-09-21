@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div class="page-container">
     <div class="main">
       <div class="title">
         Nuxt-Ant-Admin
@@ -90,7 +90,6 @@
 <script>
 export default {
   components: {},
-  layout: 'login',
   data () {
     return {
       loginBtn: false,
@@ -191,7 +190,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.login-container {
+.page-container {
   width: 100%;
   height: 100vh;
   min-height: 100%;

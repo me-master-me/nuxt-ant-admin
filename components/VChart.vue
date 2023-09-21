@@ -128,7 +128,7 @@ export default {
   },
   activated () {
     if (this.autoresize) {
-      this.chart && this.chart.resize()
+      this.chart?.resize()
     }
   },
   destroyed () {

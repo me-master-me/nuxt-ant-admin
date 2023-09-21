@@ -1,5 +1,5 @@
 <template>
-  <a-layout v-if="$route.path!=='/'" id="page-layout">
+  <a-layout v-if="!layoutPage.includes($route.path)" id="page-layout">
     <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
       <div class="logo" />
       <a-menu theme="dark" mode="inline" :default-selected-keys="['1']">
@@ -22,7 +22,7 @@
         <a-icon
           class="trigger"
           :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-          @click="() => (collapsed = !collapsed)"
+          @click="collapsed = !collapsed"
         />
       </a-layout-header>
       <a-layout-content
@@ -38,11 +38,11 @@
 export default {
   data () {
     return {
-      collapsed: false
+      collapsed: false,
+      layoutPage: ['/', '/login']
     }
   },
   mounted () {
-    console.log(this.$route.path)
   }
 }
 </script>
