@@ -1,38 +1,29 @@
 <template>
   <a-layout v-if="!layoutPage.includes($route.path)" id="page-layout">
-    <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
-      <div class="logo" />
-      <a-menu theme="dark" mode="inline" :default-selected-keys="['1']">
-        <a-menu-item key="1">
-          <a-icon type="user" />
-          <span>nav 1</span>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <a-icon type="video-camera" />
-          <span>nav 2</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <a-icon type="upload" />
-          <span>nav 3</span>
-        </a-menu-item>
-      </a-menu>
-    </a-layout-sider>
-    <a-layout>
-      <a-layout-header style="background: #fff; padding: 0">
-        <a-icon
-          class="trigger"
-          :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-          @click="collapsed = !collapsed"
-        />
-      </a-layout-header>
-      <a-layout-content
-        :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
-      >
-        <nuxt />
-      </a-layout-content>
+    <a-layout-header class="header" :style="{background: '#fff' }">
+      <NuxtLogo class="logo" />
+      <div> Nuxt-Ant-Admin</div>
+      <!-- <NuxtMenu /> -->
+    </a-layout-header>
+    <a-layout style=" background: #fff" class="min-container">
+      <a-layout-sider width="240" style="background: #fff; overflow: auto">
+        <NuxtMenu />
+      </a-layout-sider>
+      <a-layout class="page-content">
+        <a-layout-header class="header" :style="{background: '#fff', width: '100%' }">
+          <BreadCrumb />
+        </a-layout-header>
+        <a-layout-content :style="{ padding: '0',overflow: 'auto'}">
+          <nuxt />
+        </a-layout-content>
+        <a-layout-footer :style="{ textAlign: 'center' }">
+          Nuxt-Ant-Admin Created by me-master-me
+        </a-layout-footer>
+        </a-layout-header>
+      </a-layout>
     </a-layout>
   </a-layout>
-  <nuxt v-else />
+  <nuxt v-else id="page-layout" />
 </template>
 <script>
 export default {
@@ -42,14 +33,47 @@ export default {
       layoutPage: ['/', '/login']
     }
   },
-  mounted () {
-  }
+
+  computed: {
+    menuList () {
+      return this.$nuxt.context.route.meta
+    }
+  },
+  watch: {
+    isCollapse: {
+      handler (nval, oval) {
+        nval ? (this.width = '64px') : (this.width = '240px')
+      },
+      deep: true,
+      immediate: true
+    },
+    $route: {
+      handler (val) {
+      },
+      deep: true,
+      immediate: true
+    }
+  },
+  mounted () {}
 }
 </script>
 <style lang="less" scoped>
-#page-layout{
-    min-width: 1440px;
-    height: 100vh;
+#page-layout {
+  width: 100%;
+  height: 100vh;
+  min-width: 1440px;
+  overflow-x: auto;
+  //   position: relative;
+}
+.min-container {
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+.header{
+    display: flex;
+    align-items: center;
 }
 #page-layout .trigger {
   font-size: 18px;

@@ -1,10 +1,10 @@
 <template>
-  <VChart :autoresize="true" :options="options" style="width:100%;height:100%" />
+  <VChart :autoresize="true" :options="options" style="width:100%;height:1309px" />
 </template>
 
 <script>
 export default {
-  name: '',
+  meta: { title: '工作台' },
   components: {},
   props: {},
   data () {

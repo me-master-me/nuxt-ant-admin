@@ -13,6 +13,14 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
+  loading: {
+    color: 'blue',
+    height: '2px'
+  },
+  server: {
+    host: '0.0.0.0',
+    port: '8080'
+  },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
@@ -21,7 +29,7 @@ export default {
       lang: 'less'
     }
   ],
-  plugins: ['@/plugins/antd-ui', '@/plugins/unit'],
+  plugins: ['@/plugins/antd-ui', '@/plugins/unit', '@/plugins/setting'],
   components: true,
   buildModules: ['@nuxtjs/eslint-module'],
   modules: ['@nuxtjs/axios'],

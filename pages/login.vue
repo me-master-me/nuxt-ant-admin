@@ -4,48 +4,33 @@
       <div class="title">
         Nuxt-Ant-Admin
       </div>
-      <a-form
-        id="formLogin"
-        ref="formLogin"
-        class="user-layout-login"
-        :form="form"
-        @submit="handleSubmit"
+      <a-form-model
+        ref="ruleForm"
+        :model="form"
+        :rules="rules"
+        :label-col="labelCol"
+        :wrapper-col="wrapperCol"
       >
-        <a-form-item>
+        <a-form-model-item ref="name" label="用户名" prop="name">
           <a-input
-            v-decorator="[
-              'username',
-              {
-                rules: [
-                  { required: true, message: 'Please enter the username' },
-                  { validator: handleUsernameOrEmail },
-                ],
-                validateTrigger: 'default admin',
-              },
-            ]"
+            v-model="form.name"
             size="large"
-            type="text"
-            placeholder="default admin"
+            placeholder="用户名： admin"
+            @blur="$refs.name.onFieldBlur()"
           >
             <a-icon
               slot="prefix"
               type="user"
               :style="{ color: 'rgba(0,0,0,.25)' }"
             />
+            <a-input />
           </a-input>
-        </a-form-item>
-
-        <a-form-item>
+        </a-form-model-item>
+        <a-form-model-item ref="name" label="密码" prop="password">
           <a-input-password
-            v-decorator="[
-              'password',
-              {
-                rules: [{ required: true, message: 'Please enter the password' }],
-                validateTrigger: 'blur',
-              },
-            ]"
+            v-model="form.password"
             size="large"
-            placeholder="default admin"
+            placeholder="密码： admin"
           >
             <a-icon
               slot="prefix"
@@ -53,11 +38,9 @@
               :style="{ color: 'rgba(0,0,0,.25)' }"
             />
           </a-input-password>
-        </a-form-item>
-        <a-form-item>
-          <a-checkbox
-            v-decorator="['rememberMe', { valuePropName: 'checked' }]"
-          >
+        </a-form-model-item>
+        <a-form-model-item>
+          <a-checkbox>
             remember-me
           </a-checkbox>
           <a-button
@@ -68,21 +51,18 @@
           >
             forgot-password
           </a-button>
-        </a-form-item>
-
-        <a-form-item style="margin-top: 24px">
+        </a-form-model-item>
+        <a-form-model-item>
           <a-button
             size="large"
             type="primary"
-            html-type="submit"
             class="login-button"
-            :loading="state.loginBtn"
-            :disabled="state.loginBtn"
+            @click="onSubmit"
           >
             登 录
           </a-button>
-        </a-form-item>
-      </a-form>
+        </a-form-model-item>
+      </a-form-model>
     </div>
   </div>
 </template>
@@ -92,96 +72,31 @@ export default {
   components: {},
   data () {
     return {
-      loginBtn: false,
-      // login type: 0 email, 1 username, 2 telephone
-      loginType: 0,
-      requiredTwoStepCaptcha: false,
-      stepCaptchaVisible: false,
-      form: this.$form.createForm(this),
-      state: {
-        time: 60,
-        loginBtn: false,
-        // login type: 0 email, 1 username, 2 telephone
-        loginType: 0,
-        smsSendBtn: false
+      labelCol: { span: 24 },
+      wrapperCol: { span: 24 },
+      other: '',
+      form: {
+        name: 'admin',
+        password: 'admin'
+      },
+      rules: {
+        name: [
+          { required: true, message: 'Please input Activity name', trigger: 'blur' }
+        ],
+        password: [{ required: true, message: 'Please input Activity password', trigger: 'change' }]
       }
     }
   },
   created () {},
   methods: {
-    // handler
-    handleUsernameOrEmail (rule, value, callback) {
-      const { state } = this
-      const regex =
-        /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/
-      if (regex.test(value)) {
-        state.loginType = 0
-      } else {
-        state.loginType = 1
-      }
-      callback()
-    },
-    handleSubmit (e) {
-      e.preventDefault()
-      const {
-        form: { validateFields },
-        state,
-        customActiveKey
-        // Login
-      } = this
-
-      state.loginBtn = true
-      setTimeout(() => {
-        state.loginBtn = false
-      }, 2000)
-
-      const validateFieldsKey =
-        customActiveKey === 'tab1'
-          ? ['username', 'password']
-          : ['mobile', 'captcha']
-
-      validateFields(validateFieldsKey, { force: true }, (err, values) => {
-        if (!err) {
-          console.log('login form', values)
-          const loginParams = { ...values }
-          delete loginParams.username
-          loginParams[!state.loginType ? 'email' : 'username'] =
-            values.username
-          //   loginParams.password = md5(values.password)
-          //   Login(loginParams)
-          //     .then(res => this.loginSuccess(res))
-          //     .catch(err => this.requestFailed(err))
-          //     .finally(() => {
-          //       state.loginBtn = false
-          //     })
+    onSubmit () {
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
           this.$router.push({
             path: '/dashboard/overview'
           })
         } else {
-          setTimeout(() => {
-            state.loginBtn = false
-          }, 600)
-        }
-      })
-    },
-    getCaptcha (e) {
-      e.preventDefault()
-      const {
-        form: { validateFields },
-        state
-      } = this
-
-      validateFields(['mobile'], { force: true }, (err, values) => {
-        if (!err) {
-          state.smsSendBtn = true
-
-          const interval = window.setInterval(() => {
-            if (state.time-- <= 0) {
-              state.time = 60
-              state.smsSendBtn = false
-              window.clearInterval(interval)
-            }
-          }, 1000)
+          return false
         }
       })
     }
