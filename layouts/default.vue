@@ -11,7 +11,8 @@
       </a-layout-sider>
       <a-layout class="page-content">
         <a-layout-header class="header" :style="{background: '#fff', width: '100%' }">
-          <BreadCrumb />
+          <!-- <BreadCrumb /> -->
+          <HeadNavigation />
         </a-layout-header>
         <a-layout-content :style="{ padding: '0',overflow: 'auto'}">
           <nuxt />

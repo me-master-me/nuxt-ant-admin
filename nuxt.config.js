@@ -54,6 +54,10 @@ export default {
       less: {
         javascriptEnabled: true
       }
+    },
+
+    styleResources: {
+      less: './assets/css/variables.less'
     }
   }
 }

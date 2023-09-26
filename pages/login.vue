@@ -56,7 +56,7 @@
           <a-button
             size="large"
             type="primary"
-            class="login-button"
+            block
             @click="onSubmit"
           >
             登 录
@@ -129,12 +129,6 @@ export default {
   height: 60px;
   margin-bottom: 20px;
   background: url("static/images/loginTitle.png") no-repeat center/100% 100%;
-}
-button.login-button {
-  padding: 0 15px;
-  font-size: 16px;
-  height: 40px;
-  width: 100%;
 }
 .forge-password {
   font-size: 14px;

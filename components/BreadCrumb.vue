@@ -25,7 +25,6 @@ export default {
   computed: {
   },
   watch: {
-
     $route: {
       handler (val) {
         if (process.client) {

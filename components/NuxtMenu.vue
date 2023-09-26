@@ -3,18 +3,17 @@
     mode="inline"
     :default-selected-keys="[$route.path]"
     :default-open-keys="defaultOpenKeys($route.path)"
-    @select="select"
   >
     <template v-for="menu in menuList">
       <a-sub-menu v-if="menu.children?.length" :key="menu.path">
         <span slot="title">
           <a-icon :type="menu.icon" /><span>{{ menu?.label||'' }}</span>
         </span>
-        <a-menu-item v-for="item in menu.children" :key="item.path">
+        <a-menu-item v-for="item in menu.children" :key="item.path" @click="select(item)">
           <span>{{ item.label }}</span>
         </a-menu-item>
       </a-sub-menu>
-      <a-menu-item v-else :key="menu.path">
+      <a-menu-item v-else :key="menu.path" @click="select(menu)">
         <a-icon :type="menu.icon" /><span>{{ menu?.label||'' }}</span>
       </a-menu-item>
     </template>
@@ -45,8 +44,8 @@ export default {
   },
   mounted () {},
   methods: {
-    select ({ selectedKeys }) {
-      this.$router.push(selectedKeys[0])
+    select (menuItem) {
+      this.$router.push(menuItem.path)
     }
   }
 }

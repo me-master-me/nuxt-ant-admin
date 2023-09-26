@@ -76,12 +76,32 @@ const state = () => ({
         }
       ]
     }
-  ]
+  ],
+  permission: []
 })
 
 const mutations = {
   SET_MENU (state, data) {
     state.menuList = data
+  },
+  SET_PERMISSION (state, data) {
+    const queue = []
+    const permission = []
+    if (data) {
+      queue.push(data)
+      while (queue.length) {
+        const end = queue.shift()
+        end.forEach((el) => {
+          if (el.children.length > 0) {
+            queue.push(el.children)
+          } else {
+            permission.push(el.uri)
+          }
+        })
+      }
+    }
+    sessionStorage.setItem('permission', permission)
+    state.permission = permission
   }
 }
 
