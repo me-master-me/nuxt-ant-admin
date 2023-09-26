@@ -1,6 +1,6 @@
 <template>
   <a-menu
-    mode="inline"
+    :mode="mode"
     :default-selected-keys="[$route.path]"
     :default-open-keys="defaultOpenKeys($route.path)"
   >
@@ -21,7 +21,14 @@
 </template>
 <script>
 export default {
-  props: {},
+  props: {
+    mode: {
+      type: String,
+      default: () => {
+        return 'inline'
+      }
+    }
+  },
   data () {
     return {
     }
@@ -38,6 +45,7 @@ export default {
             fullPath = element.path
           }
         })
+        if (this.mode === 'horizontal') { return [] }
         return [fullPath]
       }
     }

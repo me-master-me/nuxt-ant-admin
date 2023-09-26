@@ -1,5 +1,6 @@
 import originalAxios from 'axios'
-import axios from '@/api/axios'
+import Vue from 'vue'
+import service from './axios'
 
 const GLOBAL_REQUEST_OBJ = {}
 function newRequest (name, params) {
@@ -11,12 +12,14 @@ function newRequest (name, params) {
     GLOBAL_REQUEST_OBJ[name] = CancelToken.source()
     Object.assign(params, { cancelToken: GLOBAL_REQUEST_OBJ[name].token })
 
-    axios(params).then((result) => {
-      delete GLOBAL_REQUEST_OBJ[name]
-      resolve(result)
-    }).catch((err) => {
-      reject(err)
-    })
+    service(params)
+      .then((result) => {
+        delete GLOBAL_REQUEST_OBJ[name]
+        resolve(result)
+      })
+      .catch((err) => {
+        reject(err)
+      })
   })
 }
 
@@ -42,14 +45,18 @@ function newRequest (name, params) {
       } else { // 配置config
         Object.assign(params[2], { cancelToken: GLOBAL_REQUEST_OBJ[name].token })
       }
-      axios[type].apply(this, params).then((result) => {
-        delete GLOBAL_REQUEST_OBJ[name]
-        resolve(result)
-      }).catch((err) => {
-        reject(err)
-      })
+      service[type]
+        .apply(this, params)
+        .then((result) => {
+          delete GLOBAL_REQUEST_OBJ[name]
+          resolve(result)
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 })
 
-export const axiosRequest = newRequest
+export const request = newRequest
+Vue.prototype.$request = newRequest

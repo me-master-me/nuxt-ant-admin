@@ -90,11 +90,17 @@ export default {
   created () {},
   methods: {
     onSubmit () {
-      this.$refs.ruleForm.validate((valid) => {
+      this.$refs.ruleForm.validate(async (valid) => {
         if (valid) {
+          this.$message.info('This is a normal message')
           this.$router.push({
             path: '/dashboard/overview'
           })
+          const ret = await this.$store.dispatch(
+            'user/login', this.form
+
+          )
+          console.log(ret)
         } else {
           return false
         }

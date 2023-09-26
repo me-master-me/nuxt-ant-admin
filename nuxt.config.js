@@ -29,7 +29,13 @@ export default {
       lang: 'less'
     }
   ],
-  plugins: ['@/plugins/antd-ui', '@/plugins/unit', '@/plugins/setting'],
+  plugins: [
+    '@/plugins/antd-ui',
+    '@/plugins/unit',
+    '@/plugins/setting',
+    '@/plugins/encrytion',
+    '@/plugins/axios'
+  ],
   components: true,
   buildModules: ['@nuxtjs/eslint-module'],
   modules: ['@nuxtjs/axios'],

@@ -1,6 +1,8 @@
 const state = () => ({
   menuLayout: 'side', // side||top
   theme: '#0e4aa4', // 主题
+  LOADDING: false, // 请求加载。。。
+  ENCRYPTION: true, // 接口数据加密
   themeColorList: [
     {
       key: '薄暮',
@@ -40,6 +42,12 @@ const state = () => ({
 const mutations = {
   SET_THEME (state, color) {
     state.theme = color
+  },
+  SHOW_LOADDING (state) {
+    state.LOADDING = true
+  },
+  REMOVE_LOADDING (state) {
+    state.LOADDING = false
   }
 }
 

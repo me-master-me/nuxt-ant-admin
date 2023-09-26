@@ -42,4 +42,4 @@ const Encry = {
 }
 
 Vue.prototype.$encrytion = Encry
-export const encrytion = Encry
+export default Encry
