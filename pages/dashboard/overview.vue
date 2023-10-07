@@ -1,32 +1,54 @@
 <template>
-  <VChart :autoresize="true" :options="options" style="width:100%;height:1309px" />
+  <div style="width: 100%; height: 100%">
+    <HeadStatistics />
+    <a-row :gutter="16">
+      <a-col :span="12" style="margin: 20px 0;">
+        <CodeAnalysis class="chartBox" />
+      </a-col>
+      <a-col :span="12" style="margin: 20px 0;">
+        <BrowseData class="chartBox" />
+      </a-col>
+    </a-row>
+    <a-row :gutter="16">
+      <a-col :span="24" style="margin: 20px 0;">
+        <AddData class="chartBox" />
+      </a-col>
+    </a-row>
+    <a-row :gutter="16">
+      <a-col :span="24" style="margin: 20px 0;">
+        <ProjectPlan class="ProjectPlan" />
+      </a-col>
+    </a-row>
+  </div>
 </template>
 
 <script>
+import HeadStatistics from '~/components/overview/HeadStatistics.vue'
+import CodeAnalysis from '~/components/overview/CodeAnalysis.vue'
+import BrowseData from '~/components/overview/BrowseData.vue'
+import AddData from '~/components/overview/AddData.vue'
+import ProjectPlan from '~/components/overview/ProjectPlan.vue'
 export default {
   meta: { title: '工作台' },
-  components: {},
+  components: { HeadStatistics, CodeAnalysis, BrowseData, AddData, ProjectPlan },
   props: {},
   data () {
     return {
-      options: {
-        xAxis: {
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [
-          {
-            data: [150, 230, 224, 218, 135, 147, 260],
-            type: 'line'
-          }
-        ]
-      }
     }
   },
   mounted () {},
   methods: {}
 }
 </script>
+<style lang="less" scoped>
+.chartBox{
+    height: 300px;
+    background: #fff;
+    border-radius: 5px;
+}
+.ProjectPlan{
+    height: 500px;
+    background: #fff;
+    border-radius: 5px;
+}
+</style>

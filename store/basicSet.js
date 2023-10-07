@@ -1,5 +1,5 @@
 const state = () => ({
-  menuLayout: 'side', // side||top
+  sideMenu: true, // 是否侧边导航
   theme: '#0e4aa4', // 主题
   LOADDING: false, // 请求加载。。。
   ENCRYPTION: true, // 接口数据加密
@@ -42,6 +42,9 @@ const state = () => ({
 const mutations = {
   SET_THEME (state, color) {
     state.theme = color
+  },
+  SET_menuLayout (state, isSideMenu) {
+    state.sideMenu = isSideMenu
   },
   SHOW_LOADDING (state) {
     state.LOADDING = true

@@ -29,6 +29,10 @@ export default {
       lang: 'less'
     }
   ],
+
+  styleResources: {
+    less: ['./assets/css/variables.less']
+  },
   plugins: [
     '@/plugins/antd-ui',
     '@/plugins/unit',
@@ -38,7 +42,7 @@ export default {
   ],
   components: true,
   buildModules: ['@nuxtjs/eslint-module'],
-  modules: ['@nuxtjs/axios'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/style-resources'],
   axios: {
     baseURL: '/'
   },
@@ -60,10 +64,6 @@ export default {
       less: {
         javascriptEnabled: true
       }
-    },
-
-    styleResources: {
-      less: './assets/css/variables.less'
     }
   }
 }

@@ -27,6 +27,12 @@ export default {
       default: () => {
         return 'inline'
       }
+    },
+    collapsed: {
+      type: Boolean,
+      default: () => {
+        return true
+      }
     }
   },
   data () {
@@ -45,7 +51,7 @@ export default {
             fullPath = element.path
           }
         })
-        if (this.mode === 'horizontal') { return [] }
+        if (this.mode === 'horizontal' || this.collapsed) { return [] }
         return [fullPath]
       }
     }
