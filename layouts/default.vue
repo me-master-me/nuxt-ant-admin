@@ -1,13 +1,21 @@
 <template>
-  <a-spin v-if="!layoutPage.includes($route.path)" :spinning="spinning" tip="Loading...">
+  <a-spin
+    v-if="!layoutPage.includes($route.path)"
+    :spinning="spinning"
+    tip="Loading..."
+  >
     <a-layout id="page-layout">
-      <a-layout-header class="header" :style="{background: '#fff' }">
+      <a-layout-header class="header" :style="{ background: '#fff' }">
         <div class="header_left">
           <NuxtLogo class="logo" />
           <div class="title">
             Nuxt-Ant-Admin
           </div>
-          <NuxtMenu v-if="!sideMenu" style="margin-left:50px" mode="horizontal" />
+          <NuxtMenu
+            v-if="!sideMenu"
+            style="margin-left: 50px"
+            mode="horizontal"
+          />
         </div>
         <div>
           <a-dropdown>
@@ -24,7 +32,7 @@
           </a-dropdown>
         </div>
       </a-layout-header>
-      <a-layout style=" background: #fff" class="min-container">
+      <a-layout style="background: #fff" class="min-container">
         <a-layout-sider
           v-if="sideMenu"
           v-model="collapsed"
@@ -36,7 +44,10 @@
           <NuxtMenu mode="inline" :collapsed="collapsed" />
         </a-layout-sider>
         <a-layout class="page-content">
-          <a-layout-header class="header_left" :style="{width: '100%',height: '50px' }">
+          <a-layout-header
+            class="header_left"
+            :style="{ width: '100%', height: '50px' }"
+          >
             <a-icon
               v-if="sideMenu"
               class="trigger"
@@ -46,13 +57,14 @@
             <!-- <BreadCrumb /> -->
             <HeadNavigation />
           </a-layout-header>
-          <a-layout-content :style="{ padding: '0 20px',overflow: 'auto'}">
+          <a-layout-content :style="{ padding: '0 20px', overflow: 'auto' }">
             <nuxt />
           </a-layout-content>
-          <a-layout-footer :style="{ textAlign: 'center',height: '50px' }">
+          <a-layout-footer
+            :style="{textAlign: 'center', height: '50px'}"
+          >
             Nuxt-Ant-Admin Created by me-master-me
           </a-layout-footer>
-          </a-layout-header>
         </a-layout>
       </a-layout>
     </a-layout>
@@ -87,8 +99,7 @@ export default {
       immediate: true
     },
     $route: {
-      handler (val) {
-      },
+      handler (val) {},
       deep: true,
       immediate: true
     }
@@ -110,10 +121,10 @@ export default {
   height: 100vh;
   min-width: 1200px;
   overflow-x: auto;
-  .ant-menu-horizontal{
+  .ant-menu-horizontal {
     border-bottom: 0;
   }
-  .ant-menu-inline{
+  .ant-menu-inline {
     border-right: 0;
   }
 }
@@ -124,13 +135,13 @@ export default {
   position: relative;
 }
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
- .header_left{
-    display: flex;
-    align-items: center;
+.header_left {
+  display: flex;
+  align-items: center;
 }
 #page-layout .trigger {
   font-size: 18px;
@@ -148,8 +159,8 @@ export default {
   background: rgba(255, 255, 255, 0.2);
   margin: 16px;
 }
-.title{
-    font-size: 20px;
-    font-weight: 500;
+.title {
+  font-size: 20px;
+  font-weight: 500;
 }
 </style>

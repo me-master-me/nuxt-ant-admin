@@ -38,7 +38,7 @@ export default {
         },
         xAxis: {
           type: 'time',
-          boundaryGap: ['10%', '10%'],
+          boundaryGap: ['0%', '0%'],
           axisLabel: {
             show: true,
             hideOverlap: true,
