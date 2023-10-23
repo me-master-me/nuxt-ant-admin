@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     menuList () {
-      return this.$store.state.menu.menuList
+      return this.$store.state.user.menuList
     },
     defaultOpenKeys () {
       return function (value) {

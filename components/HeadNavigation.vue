@@ -1,15 +1,8 @@
 <template>
   <div id="HeadNavigation">
-    <a-radio-group default-value="a" button-style="solid">
-      <a-radio-button
-        v-for="item in menuList"
-        :key="item.path"
-        :value="item.path"
-      >
-        {{ item.label }}
-        <a-icon :style="{marginLeft:'5px'}" type="close-circle" @click.prevent="close(item)" />
-      </a-radio-button>
-    </a-radio-group>
+    <a-tabs v-model="activeKey" type="editable-card" hide-add>
+      <a-tab-pane v-for="item in [...menuList]" :key="item.path" :tab="item.label" :closable="item.path=='/dashboard'" />
+    </a-tabs>
   </div>
 </template>
 
@@ -19,25 +12,23 @@ export default {
   props: {},
   data () {
     return {
-      checked1: false
+      checked1: false,
+      activeKey: this.$route.path
     }
   },
   computed: {
     menuList () {
-      return this.$store.state.menu.menuList
+      return this.$store.state.user.menuList
     }
   },
   mounted () {},
   methods: {
-    preventDefault (e) {
-      console.log(e)
-    },
-    close (e) {
-      console.log(e)
-    }
   }
 }
 </script>
 
 <style lang="less" scoped>
+#HeadNavigation{
+    width: calc(100% - 50px);
+}
 </style>

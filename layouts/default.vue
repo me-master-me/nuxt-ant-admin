@@ -46,7 +46,7 @@
         <a-layout class="page-content">
           <a-layout-header
             class="header_left"
-            :style="{ width: '100%', height: '50px' }"
+            :style="{ width: '100%'}"
           >
             <a-icon
               v-if="sideMenu"

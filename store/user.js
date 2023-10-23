@@ -5,7 +5,7 @@ const state = () => ({
   userInfo: {},
   menuList: [],
   permission: [],
-  appId: ''
+  HeadNavigation: []
 })
 
 const mutations = {
@@ -39,7 +39,7 @@ const mutations = {
           if (el.children.length > 0) {
             queue.push(el.children)
           } else {
-            permission.push(el.uri)
+            permission.push(el.path)
           }
         })
       }
@@ -51,62 +51,86 @@ const mutations = {
 
 const actions = {
   login ({ state, commit }, data) {
-    const loginParam = {
-      appCode: 'ai-tvm',
-      loginType: 'user',
-      tenantKey: 'a1e3729344584f628cfc5d4f53d30ddb',
-      client_id: 'browser',
-      client_secret: 'browser'
-    }
-    const mergeData = Object.assign(data, loginParam)
-    this.$request.post('/uias-service/oauth/token1', mergeData, {
-      headers: { encryption: true }
-    })
-    this.$request.post('/uias-service/oauth/token12', mergeData, {
-      headers: { encryption: true }
-    })
-    this.$request.post('/uias-service/oauth/token13', mergeData)
-    this.$request.post('/uias-service/oauth/token14', mergeData)
-    this.$request.post('/uias-service/oauth/token15', mergeData)
-    this.$request.post('/uias-service/oauth/token16', mergeData)
-    this.$request.post('/uias-service/oauth/token17', mergeData)
-    this.$request.post('/uias-service/oauth/token18', mergeData)
-    this.$request.post('/uias-service/oauth/token19', mergeData)
-    this.$request.post('/uias-service/oauth/token1', mergeData)
-    this.$request.post('/uias-service/oauth/token1', mergeData)
-    this.$request.post('/uias-service/oauth/token1', mergeData)
-    this.$request.post('/uias-service/oauth/token1', mergeData)
-    this.$request.post('/uias-service/oauth/token1', mergeData)
-    this.$request.post('/uias-service/oauth/token1', mergeData)
-    this.$request.post('/uias-service/oauth/token1', mergeData)
-    this.$request.post('/uias-service/oauth/token1', mergeData)
-    this.$request.post('/uias-service/oauth/token1', mergeData)
-    this.$request.post('/uias-service/oauth/token1', mergeData)
-
-    // if (ret.code === 0) {
-    //   const { token, userInfo, resourceTree } = ret.data
-
-    //   commit('SET_PERMISSION', resourceTree?.children)
-
-    //   this.$cookies.set('token', Encry.encrypt(JSON.stringify(token), 'token'))
-
-    //   sessionStorage.setItem(
-    //     'userInfo',
-    //     Encry.encrypt(JSON.stringify(userInfo), 'userInfo')
-    //   )
-    //   sessionStorage.setItem(
-    //     'menuList',
-    //     JSON.stringify(resourceTree?.children)
-    //   )
-
-    //   sessionStorage.setItem('appId', resourceTree?.appId)
-
-    //   commit('SET_TOKEN', token)
-    //   commit('SET_INFO', userInfo)
-    //   commit('SET_MENU', resourceTree?.children)
-    //   commit('SET_APPID', resourceTree?.appId)
-    // }
-    // return ret
+    const menuList = [
+      {
+        label: '概览',
+        path: '/dashboard',
+        icon: 'pie-chart',
+        children: [
+          {
+            label: '工作台',
+            path: '/dashboard/overview'
+          },
+          {
+            label: '实时监控',
+            path: '/12'
+          }
+        ]
+      },
+      {
+        label: '数据分析',
+        path: '/2',
+        icon: 'appstore'
+      },
+      {
+        label: '列表页',
+        path: '/3',
+        icon: 'unordered-list',
+        children: [
+          {
+            label: '查询表格',
+            path: '/31'
+          },
+          {
+            label: '卡片列表',
+            path: '/32'
+          }
+        ]
+      },
+      {
+        label: '表单页',
+        path: 'TaskCenter',
+        icon: 'form',
+        children: [
+          {
+            label: '新增表单',
+            path: '/Task'
+          }
+        ]
+      },
+      {
+        label: '详情页',
+        path: '/4',
+        icon: 'idcard',
+        children: [
+          {
+            label: '基础详情页',
+            path: '/41'
+          },
+          {
+            label: '高级详情页',
+            path: '/42'
+          }
+        ]
+      },
+      {
+        label: '结果页',
+        path: '/5',
+        icon: 'check-circle',
+        children: [
+          {
+            label: '成功',
+            path: '/51'
+          },
+          {
+            label: '失败',
+            path: '/52'
+          }
+        ]
+      }
+    ]
+    commit('SET_PERMISSION', menuList)
+    commit('SET_MENU', menuList)
   },
   async logout ({ commit }, data) {
     const ret = await this.$http.post('/uias-service/oauth/logout')
