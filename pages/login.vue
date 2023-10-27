@@ -93,13 +93,23 @@ export default {
       this.$refs.ruleForm.validate(async (valid) => {
         if (valid) {
           this.$message.info('This is a normal message')
-          this.$router.push({
-            path: '/dashboard/overview'
-          })
+          //   this.$router.push({
+          //     path: '/dashboard/overview'
+          //   })
           const ret = await this.$store.dispatch(
             'user/login', this.form
 
           )
+          const menuList = this.$store.state.user.menuList
+          if (menuList.length > 0) {
+            let path = menuList[0]?.path
+            if (menuList[0]?.children?.length > 0) {
+              path = menuList[0].children[0].path
+            }
+            this.$router.push({
+              path
+            })
+          }
           console.log(ret)
         } else {
           return false

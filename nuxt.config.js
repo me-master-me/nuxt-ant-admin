@@ -38,7 +38,8 @@ export default {
     '@/plugins/unit',
     '@/plugins/setting',
     '@/plugins/encrytion',
-    '@/plugins/axios'
+    '@/plugins/axios',
+    { src: '@/plugins/storeCache', ssr: false }
   ],
   components: true,
   buildModules: ['@nuxtjs/eslint-module'],

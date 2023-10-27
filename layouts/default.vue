@@ -1,10 +1,6 @@
 <template>
-  <a-spin
-    v-if="!layoutPage.includes($route.path)"
-    :spinning="spinning"
-    tip="Loading..."
-  >
-    <a-layout id="page-layout">
+  <div>
+    <a-layout v-if="!layoutPage.includes($route.path)" id="page-layout">
       <a-layout-header class="header" :style="{ background: '#fff' }">
         <div class="header_left">
           <NuxtLogo class="logo" />
@@ -44,10 +40,7 @@
           <NuxtMenu mode="inline" :collapsed="collapsed" />
         </a-layout-sider>
         <a-layout class="page-content">
-          <a-layout-header
-            class="header_left"
-            :style="{ width: '100%'}"
-          >
+          <a-layout-header class="header_left" :style="{ width: '100%' }">
             <a-icon
               v-if="sideMenu"
               class="trigger"
@@ -60,18 +53,17 @@
           <a-layout-content :style="{ padding: '0 20px', overflow: 'auto' }">
             <nuxt />
           </a-layout-content>
-          <a-layout-footer
-            :style="{textAlign: 'center', height: '50px'}"
-          >
+          <a-layout-footer :style="{ textAlign: 'center', height: '50px' }">
             Nuxt-Ant-Admin Created by me-master-me
           </a-layout-footer>
         </a-layout>
       </a-layout>
     </a-layout>
-  </a-spin>
-  <a-spin v-else :spinning="spinning" tip="Loading...">
-    <nuxt id="page-layout" />
-  </a-spin>
+    <nuxt v-else id="page-layout" />
+    <div v-show="spinning" class="loading">
+      <div class="loader" />
+    </div>
+  </div>
 </template>
 <script>
 export default {
@@ -91,13 +83,6 @@ export default {
     }
   },
   watch: {
-    isCollapse: {
-      handler (nval, oval) {
-        nval ? (this.width = '64px') : (this.width = '240px')
-      },
-      deep: true,
-      immediate: true
-    },
     $route: {
       handler (val) {},
       deep: true,
@@ -109,7 +94,6 @@ export default {
     handleMenuClick (e) {
       if (e.key === '0') {
         this.$store.commit('basicSet/SET_menuLayout', !this.sideMenu)
-        console.log(e)
       }
     }
   }
@@ -144,14 +128,15 @@ export default {
   align-items: center;
 }
 #page-layout .trigger {
-  font-size: 18px;
+  font-size: 20px;
+  margin-bottom: 16px;
   padding: 0 10px;
   cursor: pointer;
   transition: color 0.3s;
 }
 
 #components-layout-demo-custom-trigger .trigger:hover {
-  color: #1890ff;
+  color: @primary-color;
 }
 
 #page-layout .logo {
@@ -162,5 +147,41 @@ export default {
 .title {
   font-size: 20px;
   font-weight: 500;
+}
+/* HTML: <div class="loader"></div> */
+.loading{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    background:rgba(236, 244, 255,.8)
+}
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  padding-bottom: 5px;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 40px;
+  overflow: hidden;
+  color: #0000;
+  text-shadow: 0 0 0 @primary-color, 10ch 0 0 @primary-color;
+  background: linear-gradient(@primary-color 0 0) bottom left/0% 3px no-repeat;
+  animation: Loading 1s infinite;
+}
+.loader:before {
+  content: "Loading...";
+}
+@keyframes Loading {
+  80% {
+    text-shadow: 0 0 0 @primary-color, 10ch 0 0 @primary-color;
+    background-size: 100% 3px;
+  }
+  100% {
+    text-shadow: -10ch 0 0 @primary-color, 0 0 0 @primary-color;
+  }
 }
 </style>

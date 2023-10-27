@@ -56,9 +56,14 @@ export default {
       }
     }
   },
-  mounted () {},
+  mounted () {
+    console.log(this.$store.state.user.menuList)
+  },
   methods: {
     select (menuItem) {
+      this.$store.commit(
+        'user/SET_HeadNavigation', { path: menuItem.path, label: menuItem.label }
+      )
       this.$router.push(menuItem.path)
     }
   }

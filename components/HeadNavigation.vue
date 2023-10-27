@@ -1,7 +1,14 @@
 <template>
   <div id="HeadNavigation">
-    <a-tabs v-model="activeKey" type="editable-card" hide-add>
-      <a-tab-pane v-for="item in [...menuList]" :key="item.path" :tab="item.label" :closable="item.path=='/dashboard'" />
+    <a-tabs
+      v-model="activeKey"
+      type="editable-card"
+      hide-add
+      size="large"
+      @change="change"
+      @edit="onEdit"
+    >
+      <a-tab-pane v-for="item in $store.state.user.HeadNavigation" :key="item.path" :tab="item.label" :closable="item.path!== $route.path" />
     </a-tabs>
   </div>
 </template>
@@ -12,17 +19,25 @@ export default {
   props: {},
   data () {
     return {
-      checked1: false,
       activeKey: this.$route.path
     }
   },
   computed: {
-    menuList () {
-      return this.$store.state.user.menuList
+    HeadNavigation () {
+      return this.$store.state.user.HeadNavigation
     }
   },
-  mounted () {},
+  mounted () {
+  },
   methods: {
+    change (path) {
+      this.$router.push(path)
+    },
+    onEdit (targetKey, action) {
+      this.$store.commit(
+        'user/REMOVE_Navigation', { path: targetKey }
+      )
+    }
   }
 }
 </script>

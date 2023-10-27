@@ -36,7 +36,7 @@ const mutations = {
       while (queue.length) {
         const end = queue.shift()
         end.forEach((el) => {
-          if (el.children.length > 0) {
+          if (el.children?.length > 0) {
             queue.push(el.children)
           } else {
             permission.push(el.path)
@@ -44,8 +44,24 @@ const mutations = {
         })
       }
     }
-    sessionStorage.setItem('permission', permission)
+    // sessionStorage.setItem('permission', permission)
     state.permission = permission
+  },
+  SET_HeadNavigation (state, data) {
+    const Navigation = state.HeadNavigation
+    const index = Navigation.findIndex(item => item.path === data.path)
+    if (index === -1) {
+      Navigation.push(data)
+    }
+    state.HeadNavigation = Navigation
+  },
+  REMOVE_Navigation (state, data) {
+    const Navigation = state.HeadNavigation
+    const index = Navigation.findIndex(item => item.path === data.path)
+    if (index !== -1) {
+      Navigation.splice(index, 1)
+    }
+    state.HeadNavigation = Navigation
   }
 }
 
@@ -129,11 +145,21 @@ const actions = {
         ]
       }
     ]
+
+    if (menuList.length > 0) {
+      let path = menuList[0]?.path
+      let label = menuList[0]?.label
+      if (menuList[0]?.children?.length > 0) {
+        path = menuList[0].children[0].path
+        label = menuList[0].children[0].label
+      }
+      commit('SET_HeadNavigation', { path, label })
+    }
     commit('SET_PERMISSION', menuList)
     commit('SET_MENU', menuList)
   },
   async logout ({ commit }, data) {
-    const ret = await this.$http.post('/uias-service/oauth/logout')
+    const ret = await this.$request.post('/uias-service/oauth/logout')
     if (ret.code === 0) {
       sessionStorage.clear()
       this.$cookies.removeAll()
@@ -166,7 +192,7 @@ const actions = {
     commit('SET_TOKEN', data)
   },
   async error ({ commit }, data) {
-    await this.$http.post('/404', data)
+    await this.$request.post('/404', data)
   }
 }
 
