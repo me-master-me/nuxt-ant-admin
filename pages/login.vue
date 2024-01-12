@@ -16,7 +16,6 @@
             v-model="form.name"
             size="large"
             placeholder="用户名： admin"
-            @blur="$refs.name.onFieldBlur()"
           >
             <a-icon
               slot="prefix"

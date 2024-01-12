@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import {
-  Affix,
+//   Affix,
   Anchor,
   AutoComplete,
   Alert,
@@ -66,7 +66,7 @@ import {
 } from 'ant-design-vue'
 
 const components = [
-  Affix,
+//   Affix,
   Anchor,
   AutoComplete,
   Alert,

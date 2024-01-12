@@ -20,6 +20,18 @@ export const UTILS = {
     format = format.replace('MM', minutes)
     format = format.replace('SS', seconds)
     return format
+  },
+  // 获取数据类型
+  getPrototype (obj) {
+    const type = typeof obj
+    if (type !== 'object') {
+      // 基础类型直接返回
+      return type
+    }
+    // Object.prototype.toString
+    return Object.prototype.toString
+      .call(obj)
+      .replace(/^\[object (\S+)\]$/, '$1')
   }
 }
 Vue.prototype.$uitls = UTILS

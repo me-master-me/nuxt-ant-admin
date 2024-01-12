@@ -23,7 +23,6 @@
               <a-menu-item key="1">
                 退出登录
               </a-menu-item>
-              <a-menu-divider />
             </a-menu>
           </a-dropdown>
         </div>
@@ -61,7 +60,9 @@
     </a-layout>
     <nuxt v-else id="page-layout" />
     <div v-show="spinning" class="loading">
-      <div class="loader" />
+      <div>
+        <div class="loader" />
+      </div>
     </div>
   </div>
 </template>
